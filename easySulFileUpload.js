@@ -185,7 +185,7 @@
                 fileName = getClipboardFileName(file);
             }
 
-            uploadFile(file, isClipboard, linkText,
+            uploadFile(file, fileName,
             // eslint-disable-next-line
             function(downloadUrl) {
                 filesFinished++;
@@ -224,29 +224,24 @@
 		}
     }
 
-    async function uploadFile(fileData, isClipboard, linkText, finishCallback = null, errorCallback = null) {
-        let fileName = fileData.name;
-        if (isClipboard) {
-            fileName = getClipboardFileName(fileData);
-        }
-
+    async function uploadFile(file, fileName, finishCallback = null, errorCallback = null) {
         let params = new FormData();
         params.append("wizard", true);
         if (api_key != "") {
             params.append("key", api_key);
         }
-        params.append("file", fileData, fileName);
+        params.append("file", file, fileName);
 
         GM.xmlHttpRequest({
             method: "POST",
             url: "https://s-ul.eu/api/v1/upload",
-            data: fileData,
+            data: file,
             responseType: "json",
             headers: {
-                "content-type": fileData.type,
+                "content-type": file.type,
                 "x-name": encodeURIComponent(fileName),
-                "x-size": fileData.size,
-                "x-type": fileData.type,
+                "x-size": file.size,
+                "x-type": file.type,
             },
             upload: {
                 onprogress: function(response) {
@@ -254,7 +249,14 @@
                     console.log("Upload progress: " + progress);
                 }
             },
-            onload: function(response) { finishCallback(response.response.url) },
+            onload: function(response) {
+                let downloadUrl = response.response.url;
+                if (downloadUrl != undefined) {
+                    finishCallback(response.response.url)
+                } else {
+                    errorCallback(response);
+                }
+            },
             onerror: function(response) { errorCallback(response) },
             ontimeout: function(response) { errorCallback(response) },
             onabort: function(response) { errorCallback(response) }

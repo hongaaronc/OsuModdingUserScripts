@@ -24,7 +24,7 @@
     // 8. (Optional) You may want to set your API key manually if for example, you want to use a different s-ul account from the one that you are currently logged into
     //     - Find your API key at: https://s-ul.eu/account/preferences, then paste it in the field below (between the quotation marks)
     const api_key = "";
-    // 9. If you encounter any issues with this script, feel free to reach out to @Nostril on Discord
+    // 9. If you encounter any issues with this script, feel free to reach out to Nostril on osu! DMs (https://osu.ppy.sh/users/11479122)
 
     // Global Vars/Constants
     const embeddableFileTypes = ["image/gif", "image/jpeg", "image/png"];

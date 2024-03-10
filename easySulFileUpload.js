@@ -5,6 +5,7 @@
 // @description  Allow easy adding of images to discussions page. Paste or drag+drop a file into the new post box. Auto-embeds images. Will replace any highlighted text with a markdown link. Also works with multiple-file uploads.
 // @author       Nostril
 // @match        https://osu.ppy.sh/beatmapsets/*/discussion*
+// @run-at       document-body
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        GM.xmlHttpRequest
 // ==/UserScript==
